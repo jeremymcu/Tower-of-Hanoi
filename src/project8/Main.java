@@ -98,7 +98,7 @@ public class Main {
         Stack<Integer> stack3= new Stack<>();
 
         Scanner scan = new Scanner(System.in);
-        System.out.print("Enter number of disks: ");
+        System.out.print("Enter number of disks: "); //Maximum number of disk is 12 due to stackoverflow on 13
         num = scan.nextInt();
 
         for (int i=0; i<num; i++){
