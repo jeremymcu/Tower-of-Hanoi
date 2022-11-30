@@ -4,41 +4,10 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class Main {
-    void hanoi(int num, Stack<Integer> stack1, Stack<Integer> stack2, Stack<Integer> stack3){
-        if (num%2==0){
-            if (stack2.isEmpty() || stack1.peek()<stack2.peek())
-                stack2.push(stack1.pop());
-            else
-                stack1.push(stack2.pop());
+    static int loop = 0;
 
-            if (stack3.isEmpty() || stack1.peek()<stack3.peek())
-                stack3.push(stack1.pop());
-            else
-                stack1.push(stack3.pop());
-
-            if (stack3.isEmpty() || stack2.peek()<stack3.peek())
-                stack3.push(stack2.pop());
-            else
-                stack2.push(stack3.pop());
-        }
-        else {
-            if (stack3.isEmpty() || stack1.peek()<stack3.peek())
-                stack3.push(stack1.pop());
-            else
-                stack1.push(stack3.pop());
-
-            if (stack2.isEmpty() || stack1.peek()<stack2.peek())
-                stack2.push(stack1.pop());
-            else
-                stack1.push(stack2.pop());
-
-            if (stack3.isEmpty() || stack2.peek()<stack3.peek())
-                stack3.push(stack2.pop());
-            else
-                stack2.push(stack3.pop());
-        }
-
-        System.out.println("Stack 1:\t\tStack 2:\t\tStack 3:");
+    void print(int num, Stack<Integer> stack1, Stack<Integer> stack2, Stack<Integer> stack3){
+        System.out.println("Stack 1:\tStack 2:\tStack 3:");
         Stack<Integer> temp1 = new Stack<>();
         Stack<Integer> temp2 = new Stack<>();
         Stack<Integer> temp3 = new Stack<>();
@@ -56,7 +25,7 @@ public class Main {
                 temp3.push(stack3.pop());
                 now3 = temp3.peek();
             }
-            System.out.println(now1 + "\t" + now2 + "\t" + now3);
+            System.out.println(now1 + "\t\t\t" + now2 + "\t\t\t" + now3);
         }
         for (int i=0; i<num; i+=1){
             if (!temp1.isEmpty())
@@ -68,8 +37,57 @@ public class Main {
 
 
         }
+    }
 
-        if (stack3.size() != num)
+    void hanoi(int num, Stack<Integer> stack1, Stack<Integer> stack2, Stack<Integer> stack3){
+        System.out.println("Lopp number: " + ++loop);
+
+        if (num%2==0){
+            if (!stack1.isEmpty() && (stack2.isEmpty() || stack1.peek()<stack2.peek()))
+                stack2.push(stack1.pop());
+            else
+                stack1.push(stack2.pop());
+
+            print(num, stack1, stack2, stack3);
+
+            if (!stack1.isEmpty() && (stack3.isEmpty() || stack1.peek()<stack3.peek()))
+                stack3.push(stack1.pop());
+            else
+                stack1.push(stack3.pop());
+
+            print(num, stack1, stack2, stack3);
+
+            if (!stack2.isEmpty() && (stack3.isEmpty() || stack2.peek()<stack3.peek()))
+                stack3.push(stack2.pop());
+            else
+                stack2.push(stack3.pop());
+
+            print(num, stack1, stack2, stack3);
+        }
+        else {
+            if (!stack1.isEmpty() && (stack3.isEmpty() || stack1.peek()<stack3.peek()))
+                stack3.push(stack1.pop());
+            else if (stack3.size() < num)
+                stack1.push(stack3.pop());
+
+            print(num, stack1, stack2, stack3);
+
+            if (!stack1.isEmpty() && (stack2.isEmpty() || stack1.peek()<stack2.peek()))
+                stack2.push(stack1.pop());
+            else if (stack3.size() < num)
+                stack1.push(stack2.pop());
+
+            print(num, stack1, stack2, stack3);
+
+            if (!stack2.isEmpty() && (stack3.isEmpty() || stack2.peek()<stack3.peek()))
+                stack3.push(stack2.pop());
+            else if (stack3.size() < num)
+                stack2.push(stack3.pop());
+
+            print(num, stack1, stack2, stack3);
+        }
+
+        if (stack3.size() < num)
             hanoi(num, stack1, stack2, stack3);
     }
 
