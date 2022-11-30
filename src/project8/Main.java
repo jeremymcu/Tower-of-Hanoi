@@ -43,16 +43,28 @@ public class Main {
         Stack<Integer> temp2 = new Stack<>();
         Stack<Integer> temp3 = new Stack<>();
         for (int i=0; i<num; i+=1){
-            temp1.push(stack1.pop());
-            temp2.push(stack2.pop());
-            temp3.push(stack3.pop());
-            System.out.println(temp1.peek() + "\t" + temp2.peek() + "\t" + temp3.peek());
+            int now1 = 0, now2 = 0, now3 = 0;
+            if (!stack1.isEmpty()) {
+                temp1.push(stack1.pop());
+                now1 = temp1.peek();
+            }
+            if (!stack2.isEmpty()) {
+                temp2.push(stack2.pop());
+                now2 = temp2.peek();
+            }
+            if (!stack3.isEmpty()) {
+                temp3.push(stack3.pop());
+                now3 = temp3.peek();
+            }
+            System.out.println(now1 + "\t" + now2 + "\t" + now3);
         }
         for (int i=0; i<num; i+=1){
-
-            stack1.push(temp1.pop());
-            stack2.push(temp2.pop());
-            stack3.push(temp3.pop());
+            if (!temp1.isEmpty())
+                stack1.push(temp1.pop());
+            if (!temp2.isEmpty())
+                stack2.push(temp2.pop());
+            if (!temp3.isEmpty())
+                stack3.push(temp3.pop());
 
 
         }
