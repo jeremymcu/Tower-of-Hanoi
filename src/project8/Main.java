@@ -40,7 +40,7 @@ public class Main {
     }
 
     void hanoi(int num, Stack<Integer> stack1, Stack<Integer> stack2, Stack<Integer> stack3){
-        System.out.println("Lopp number: " + ++loop);
+        System.out.println("Loop number: " + ++loop);
 
         if (num%2==0){
             if (!stack1.isEmpty() && (stack2.isEmpty() || stack1.peek()<stack2.peek()))
