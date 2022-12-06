@@ -34,13 +34,11 @@ public class Main {
                 stack2.push(temp2.pop());
             if (!temp3.isEmpty())
                 stack3.push(temp3.pop());
-
-
         }
     }
 
     void hanoi(int num, Stack<Integer> stack1, Stack<Integer> stack2, Stack<Integer> stack3){
-        System.out.println("Loop number: " + ++loop);
+        System.out.println("Step number: " + ++loop);
 
         if (num%2==0){
             if (!stack1.isEmpty() && (stack2.isEmpty() || stack1.peek()<stack2.peek()))
@@ -49,20 +47,12 @@ public class Main {
                 stack1.push(stack2.pop());
 
             print(num, stack1, stack2, stack3);
+            System.out.println("Step number: " + ++loop);
 
             if (!stack1.isEmpty() && (stack3.isEmpty() || stack1.peek()<stack3.peek()))
                 stack3.push(stack1.pop());
             else if (stack3.size() < num)
                 stack1.push(stack3.pop());
-
-            print(num, stack1, stack2, stack3);
-
-            if (!stack2.isEmpty() && (stack3.isEmpty() || stack2.peek()<stack3.peek()))
-                stack3.push(stack2.pop());
-            else if (stack3.size() < num)
-                stack2.push(stack3.pop());
-
-            print(num, stack1, stack2, stack3);
         }
         else {
             if (!stack1.isEmpty() && (stack3.isEmpty() || stack1.peek()<stack3.peek()))
@@ -71,21 +61,21 @@ public class Main {
                 stack1.push(stack3.pop());
 
             print(num, stack1, stack2, stack3);
+            System.out.println("Step number: " + ++loop);
 
             if (!stack1.isEmpty() && (stack2.isEmpty() || stack1.peek()<stack2.peek()))
                 stack2.push(stack1.pop());
             else if (stack3.size() < num)
                 stack1.push(stack2.pop());
-
-            print(num, stack1, stack2, stack3);
-
-            if (!stack2.isEmpty() && (stack3.isEmpty() || stack2.peek()<stack3.peek()))
-                stack3.push(stack2.pop());
-            else if (stack3.size() < num)
-                stack2.push(stack3.pop());
-
-            print(num, stack1, stack2, stack3);
         }
+
+        print(num, stack1, stack2, stack3);
+        System.out.println("Step number: " + ++loop);
+        if (!stack2.isEmpty() && (stack3.isEmpty() || stack2.peek()<stack3.peek()))
+            stack3.push(stack2.pop());
+        else if (stack3.size() < num)
+            stack2.push(stack3.pop());
+        print(num, stack1, stack2, stack3);
 
         if (stack3.size() < num)
             hanoi(num, stack1, stack2, stack3);
