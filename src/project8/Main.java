@@ -38,45 +38,47 @@ public class Main {
     }
 
     void hanoi(int num, Stack<Integer> stack1, Stack<Integer> stack2, Stack<Integer> stack3){
-        while (stack3.size() < num) {
-            System.out.println("Step number: " + ++step);
+        System.out.println("Step number: " + ++step);
 
-            if (num % 2 == 0) {
-                if (!stack1.isEmpty() && (stack2.isEmpty() || stack1.peek() < stack2.peek()))
-                    stack2.push(stack1.pop());
-                else if (stack3.size() < num)
-                    stack1.push(stack2.pop());
-
-                print(num, stack1, stack2, stack3);
-                System.out.println("Step number: " + ++step);
-
-                if (!stack1.isEmpty() && (stack3.isEmpty() || stack1.peek() < stack3.peek()))
-                    stack3.push(stack1.pop());
-                else if (stack3.size() < num)
-                    stack1.push(stack3.pop());
-            } else {
-                if (!stack1.isEmpty() && (stack3.isEmpty() || stack1.peek() < stack3.peek()))
-                    stack3.push(stack1.pop());
-                else if (stack3.size() < num)
-                    stack1.push(stack3.pop());
-
-                print(num, stack1, stack2, stack3);
-                System.out.println("Step number: " + ++step);
-
-                if (!stack1.isEmpty() && (stack2.isEmpty() || stack1.peek() < stack2.peek()))
-                    stack2.push(stack1.pop());
-                else if (stack3.size() < num)
-                    stack1.push(stack2.pop());
-            }
-
-            print(num, stack1, stack2, stack3);
-            System.out.println("Step number: " + ++step);
-            if (!stack2.isEmpty() && (stack3.isEmpty() || stack2.peek() < stack3.peek()))
-                stack3.push(stack2.pop());
+        if (num%2==0){
+            if (!stack1.isEmpty() && (stack2.isEmpty() || stack1.peek()<stack2.peek()))
+                stack2.push(stack1.pop());
             else if (stack3.size() < num)
-                stack2.push(stack3.pop());
+                stack1.push(stack2.pop());
+
             print(num, stack1, stack2, stack3);
+            System.out.println("Step number: " + ++step);
+
+            if (!stack1.isEmpty() && (stack3.isEmpty() || stack1.peek()<stack3.peek()))
+                stack3.push(stack1.pop());
+            else if (stack3.size() < num)
+                stack1.push(stack3.pop());
         }
+        else {
+            if (!stack1.isEmpty() && (stack3.isEmpty() || stack1.peek()<stack3.peek()))
+                stack3.push(stack1.pop());
+            else if (stack3.size() < num)
+                stack1.push(stack3.pop());
+
+            print(num, stack1, stack2, stack3);
+            System.out.println("Step number: " + ++step);
+
+            if (!stack1.isEmpty() && (stack2.isEmpty() || stack1.peek()<stack2.peek()))
+                stack2.push(stack1.pop());
+            else if (stack3.size() < num)
+                stack1.push(stack2.pop());
+        }
+
+        print(num, stack1, stack2, stack3);
+        System.out.println("Step number: " + ++step);
+        if (!stack2.isEmpty() && (stack3.isEmpty() || stack2.peek()<stack3.peek()))
+            stack3.push(stack2.pop());
+        else if (stack3.size() < num)
+            stack2.push(stack3.pop());
+        print(num, stack1, stack2, stack3);
+
+        if (stack3.size() < num)
+            hanoi(num, stack1, stack2, stack3);
     }
 
     public static void main(String[] args) {
@@ -86,7 +88,7 @@ public class Main {
         Stack<Integer> stack3= new Stack<>();
 
         Scanner scan = new Scanner(System.in);
-        System.out.print("Enter number of disks: "); //Maximum number of disk is unknown yet
+        System.out.print("Enter number of disks: "); //Maximum number of disk is 12 due to stackoverflow on 13
         num = scan.nextInt();
 
         for (int i=0; i<num; i++){
