@@ -5,6 +5,7 @@ import java.util.Stack;
 
 public class Main {
     static int step = 0;
+    static int rec = 0;
 
     void print(int num, Stack<Integer> stack1, Stack<Integer> stack2, Stack<Integer> stack3){
         System.out.println("Stack 1:\tStack 2:\tStack 3:");
@@ -38,6 +39,7 @@ public class Main {
     }
 
     void hanoi(int num, Stack<Integer> stack1, Stack<Integer> stack2, Stack<Integer> stack3){
+        System.out.println("Recursion number: " + rec++);
         System.out.println("Step number: " + ++step);
 
         if (num%2==0){
@@ -47,6 +49,10 @@ public class Main {
                 stack1.push(stack2.pop());
 
             print(num, stack1, stack2, stack3);
+
+            if(stack1.isEmpty() && stack2.isEmpty())
+                return;
+
             System.out.println("Step number: " + ++step);
 
             if (!stack1.isEmpty() && (stack3.isEmpty() || stack1.peek()<stack3.peek()))
@@ -61,6 +67,10 @@ public class Main {
                 stack1.push(stack3.pop());
 
             print(num, stack1, stack2, stack3);
+
+            if(stack1.isEmpty() && stack2.isEmpty())
+                return;
+
             System.out.println("Step number: " + ++step);
 
             if (!stack1.isEmpty() && (stack2.isEmpty() || stack1.peek()<stack2.peek()))
@@ -70,6 +80,10 @@ public class Main {
         }
 
         print(num, stack1, stack2, stack3);
+
+        if(stack1.isEmpty() && stack2.isEmpty())
+            return;
+
         System.out.println("Step number: " + ++step);
         if (!stack2.isEmpty() && (stack3.isEmpty() || stack2.peek()<stack3.peek()))
             stack3.push(stack2.pop());
